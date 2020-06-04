@@ -1,0 +1,2 @@
+# Magstripe
+Software engineering project
