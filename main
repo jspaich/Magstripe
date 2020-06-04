@@ -1,0 +1,517 @@
+from datetime import datetime
+import os
+import cv2
+
+
+dateTimeObj = datetime.now()
+cont = 'y'
+admin1 = '123'
+admin2 = '345'
+secretary = '456'
+file = open("times.txt", "a")
+file.write("****************SYSTEM REBOOT AT ")
+file.write(str(dateTimeObj))
+file.write("*****************")
+file.write("\n")
+file.close()
+
+
+def enterDoors():
+    print("Choose what door you want to enter \n")
+    askingdoor = input(" (1) Admin \n (2) Infant \n (3) Toddler \n (4) Preschool \n (5) Front door \n (6) Cancel \n")
+    if askingdoor == '6':
+        main()
+    swiped = input("Swipe card: ")
+    #CHECKING DOOR STATUS
+    #ADMIN
+    if(askingdoor == '1'):
+        with open('admin.txt') as admin:
+            if swiped in admin.read():
+                print("Access Granted")
+                admin.close()
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write(str(dateTimeObj))
+                file.write("    admin hall")
+                file.write('\n')
+                file.close()
+            else:
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write("DENIED AT ADMIN   ")
+                file.write(str(dateTimeObj))
+                file.write('\n')
+                file.close()
+                print("ACCESS DENIED")
+    #INFANT
+    if (askingdoor == '2'):
+        with open('infant.txt') as admin:
+            if swiped in admin.read():
+                print("Access Granted")
+                admin.close()
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write(str(dateTimeObj))
+                file.write("    infant hall")
+                file.write('\n')
+                file.close()
+            else:
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write("DENIED AT INFANT   ")
+                file.write(str(dateTimeObj))
+                file.write('\n')
+                file.close()
+                print("ACCESS DENIED")
+    #TODDLER
+    if (askingdoor == '3'):
+        with open('toddler.txt') as admin:
+            if swiped in admin.read():
+                print("Access Granted")
+                admin.close()
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write(str(dateTimeObj))
+                file.write("    toddler hall")
+                file.write('\n')
+                file.close()
+            else:
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write("DENIED AT TODDLER   ")
+                file.write(str(dateTimeObj))
+                file.write('\n')
+                file.close()
+                print("ACCESS DENIED")
+    #PRESCHOOL
+    if (askingdoor == '4'):
+        with open('preschool.txt') as admin:
+            if swiped in admin.read():
+                print("Access Granted")
+                admin.close()
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write(str(dateTimeObj))
+                file.write("    preschool hall")
+                file.write('\n')
+                file.close()
+            else:
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write("DENIED AT PRESCHOOL   ")
+                file.write(str(dateTimeObj))
+                file.write('\n')
+                file.close()
+                print("ACCESS DENIED")
+    #FRONT
+    if (askingdoor == '5'):
+        with open('front.txt') as admin:
+            if swiped in admin.read():
+                print("Access Granted")
+                admin.close()
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write(str(dateTimeObj))
+                file.write("    front door")
+                file.write('\n')
+                file.close()
+            else:
+                file = open("times.txt", "a")
+                file.write(swiped)
+                file.write("    ")
+                file.write("DENIED AT FRONT   ")
+                file.write(str(dateTimeObj))
+                file.write('\n')
+                file.close()
+                print("ACCESS DENIED")
+
+
+
+def passcheck():
+    checkadmin = input("Enter your admin password: ")
+    if checkadmin == admin1 or checkadmin == admin2 or checkadmin == secretary:
+        return 1
+def personne():
+    whataction = input(" (1) Add new person \n (2) Delete person \n (3) View Files \n (4) Back to main \n (5) View Front Camera \n (6) Shutdown \n")
+
+    #ADDING ACCOUNTS
+    if(whataction == '1'):
+        #ADMIN DOOR
+        print("What door do you want to add an account to")
+        whatdoor = input(" (1) Admin \n (2) Infant \n (3) Toddler \n (4) Preschool \n (5) Front door \n (6) Cancel \n")
+
+        if(whatdoor == '1'):
+            swiped1 = input("Swipe new account card: ")
+            with open ("admin.txt", "r") as admin:
+                lines = admin.readlines()
+                for line in lines:
+                    if line.strip("\n") == swiped1:
+                        print("USER ALREADY EXISTS IN ADMIN")
+                        personne()
+            newname = input("Enter the account holders name: ")
+            file = open("admin.txt", "a")
+            file.write(swiped1)
+            file.write('\n')
+            file.close()
+            file = open("permrec.txt", "a")
+            file.write(swiped1)
+            file.write("    ")
+            file.write(newname)
+            file.write("    ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            file = open("times.txt", "a")
+            file.write(newname)
+            file.write("    ")
+            file.write("NEW ACCOUNT WITH ACCESS TO ADMIN AT     ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            print("New account created!")
+            print("\n")
+    #INFANT DOOR
+        if (whatdoor == '2'):
+            swiped1 = input("Swipe new account card: ")
+            with open("infant.txt", "r") as admin:
+                lines = admin.readlines()
+                for line in lines:
+                    if line.strip("\n") == swiped1:
+                        print("USER ALREADY EXISTS IN INFANT")
+                        personne()
+            newname = input("Enter the account holders name: ")
+            file = open("infant.txt", "a")
+            file.write(swiped1)
+            file.write('\n')
+            file.close()
+            file = open("permrec.txt", "a")
+            file.write(swiped1)
+            file.write("    ")
+            file.write(newname)
+            file.write("    ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            file = open("times.txt", "a")
+            file.write(newname)
+            file.write("    ")
+            file.write("NEW ACCOUNT WITH ACCESS TO INFANT AT     ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            print("New account created!")
+            print("\n")
+    #TODDLER DOOR
+        if (whatdoor == '3'):
+            swiped1 = input("Swipe new account card: ")
+            with open("toddler.txt", "r") as admin:
+                lines = admin.readlines()
+                for line in lines:
+                    if line.strip("\n") == swiped1:
+                        print("USER ALREADY EXISTS IN TODDLER")
+                        personne()
+            newname = input("Enter the account holders name: ")
+            file = open("toddler.txt", "a")
+            file.write(swiped1)
+            file.write('\n')
+            file.close()
+            file = open("permrec.txt", "a")
+            file.write(swiped1)
+            file.write("    ")
+            file.write(newname)
+            file.write("    ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            file = open("times.txt", "a")
+            file.write(newname)
+            file.write("    ")
+            file.write("NEW ACCOUNT WITH ACCESS TO TODDLER AT     ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            print("New account created!")
+            print("\n")
+    #PRESCHOOL DOOR
+        if (whatdoor == '4'):
+            swiped1 = input("Swipe new account card: ")
+            with open("preschool.txt", "r") as admin:
+                lines = admin.readlines()
+                for line in lines:
+                    if line.strip("\n") == swiped1:
+                        print("USER ALREADY EXISTS IN PRESCHOOL")
+                        personne()
+            newname = input("Enter the account holders name: ")
+            file = open("preschool.txt", "a")
+            file.write(swiped1)
+            file.write('\n')
+            file.close()
+            file = open("permrec.txt", "a")
+            file.write(swiped1)
+            file.write("    ")
+            file.write(newname)
+            file.write("    ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            file = open("times.txt", "a")
+            file.write(newname)
+            file.write("    ")
+            file.write("NEW ACCOUNT WITH ACCESS TO PRESCHOOL AT     ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            print("New account created!")
+            print("\n")
+    #FRONT DOOR
+        if (whatdoor == '5'):
+            swiped1 = input("Swipe new account card: ")
+            with open("front.txt", "r") as admin:
+                lines = admin.readlines()
+                for line in lines:
+                    if line.strip("\n") == swiped1:
+                        print("USER ALREADY EXISTS IN FRONT")
+                        personne()
+                        #user signin
+                        #Check perm records
+                        #if card id, if ture pull full line
+                        #print/store information in front door
+
+            newname = input("Enter the account holders name: ")
+            file = open("front.txt", "a")
+            file.write(swiped1)
+            file.write('\n')
+            file.close()
+            file = open("permrec.txt", "a")
+            file.write(swiped1)
+            file.write("    ")
+            file.write(newname)
+            file.write("    ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            file = open("times.txt", "a")
+            file.write(newname)
+            file.write("    ")
+            file.write("NEW ACCOUNT WITH ACCESS TO FRONT AT     ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            print("New account created!")
+            print("\n")
+#DELETING ACCOUNTS
+    if(whataction == '2'):
+        print("What door do you want to delete an employee from? ")
+        askingdoor = input(" (1) Admin \n (2) Infant \n (3) Toddler \n (4) Preschool \n (5) Front door \n (6) Cancel \n")
+        #ADMIN
+        if(askingdoor == '1'):
+            swiped = input("Swipe card to delete: ").strip()
+            with open("admin.txt", "r") as admin:
+                lines = admin.readlines()
+            with open("admin.txt", "w") as admin:
+                for line in lines:
+                    if line.strip("\n") != swiped:
+                        admin.write(line)
+            print("account deleted")
+            file = open("times.txt", "a")
+            file.write(swiped)
+            file.write("   deleted at   ")
+            file.write(str(dateTimeObj))
+            file.write("    from    ")
+            file.write("admin")
+            file.write("\n")
+            file.close()
+
+        #INFANT
+        if(askingdoor == '2'):
+            swiped = input("Swipe card to delete: ").strip()
+            with open("infant.txt", "r") as admin:
+                lines = admin.readlines()
+            with open("infant.txt", "w") as admin:
+                for line in lines:
+                    if line.strip("\n") != swiped:
+                        admin.write(line)
+            print("account deleted")
+            file = open("times.txt", "a")
+            file.write(swiped)
+            file.write("   deleted at   ")
+            file.write(str(dateTimeObj))
+            file.write("    from    ")
+            file.write("infant")
+            file.write("\n")
+            file.close()
+        #TODDLER
+        if(askingdoor == '3'):
+            swiped = input("Swipe card to delete: ").strip()
+            with open("toddler.txt", "r") as admin:
+                lines = admin.readlines()
+            with open("toddler.txt", "w") as admin:
+                for line in lines:
+                    if line.strip("\n") != swiped:
+                        admin.write(line)
+            print("account deleted")
+            file = open("times.txt", "a")
+            file.write(swiped)
+            file.write("   deleted at   ")
+            file.write(str(dateTimeObj))
+            file.write("    from    ")
+            file.write("toddler")
+            file.write("\n")
+            file.close()
+        #PRESCHOOL
+        if(askingdoor == '4'):
+            swiped = input("Swipe card to delete: ").strip()
+            with open("preschool.txt", "r") as admin:
+                lines = admin.readlines()
+            with open("preschool.txt", "w") as admin:
+                for line in lines:
+                    if line.strip("\n") != swiped:
+                        admin.write(line)
+            print("account deleted")
+            file = open("times.txt", "a")
+            file.write(swiped)
+            file.write("   deleted at   ")
+            file.write(str(dateTimeObj))
+            file.write("    from    ")
+            file.write("preschool")
+            file.write("\n")
+            file.close()
+        #FRONT
+        if(askingdoor == '5'):
+            swiped = input("Swipe card to delete: ").strip()
+            with open("front.txt", "r") as admin:
+                lines = admin.readlines()
+            with open("front.txt", "w") as admin:
+                for line in lines:
+                    if line.strip("\n") != swiped:
+                        admin.write(line)
+            print("account deleted")
+            file = open("times.txt", "a")
+            file.write(swiped)
+            file.write("   deleted at   ")
+            file.write(str(dateTimeObj))
+            file.write("    from    ")
+            file.write("front door")
+            file.write("\n")
+            file.close()
+
+    #SHUTDOWN SYSTEM
+    if(whataction == '6'):
+        makesure = input("Are you sure you want to shut down y/n: ")
+        if makesure == 'y':
+            doubleconfirm = input("Enter admin password: ")
+            if(doubleconfirm == admin1):
+                print("*********SYSTEM OFFLINE REBOOT TO ACCESS DOORS*********")
+                file = open("times.txt", "a")
+                file.write("****************SYSTEM OFFLINE AT ")
+                file.write(str(dateTimeObj))
+                file.write("****************")
+                file.write("\n")
+                file.close()
+                exit()
+        if makesure == 'n':
+            personne()
+    if(whataction == '4'):
+        main()
+
+    if(whataction == '3'):
+        choice = input(" (1) Admin \n (2) Infant \n (3) Toddler \n (4) Preschool \n (5) Front door \n (6) Times \n (7) PRECS \n")
+        if(choice == '1'):
+            os.system("notepad.exe admin.txt")
+            file = open("times.txt", "a")
+            file.write("ADMIN PERMISSIONS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+        if (choice == '2'):
+            os.system("notepad.exe infant.txt")
+            file = open("times.txt", "a")
+            file.write("INFANT PERMISSIONS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+        if (choice == '3'):
+            os.system("notepad.exe toddler.txt")
+            file = open("times.txt", "a")
+            file.write("PRESCHOOL PERMISSIONS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+        if (choice == '4'):
+            os.system("notepad.exe preschool.txt")
+            file = open("times.txt", "a")
+            file.write("TODDLER PERMISSIONS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+        if (choice == '7'):
+            os.system("notepad.exe permrec.txt")
+            file = open("times.txt", "a")
+            file.write("PERMANENT RECORDS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+        if (choice == '6'):
+            file = open("times.txt", "a")
+            file.write("TIME STAMPS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+            os.system("notepad.exe times.txt")
+        if (choice == '5'):
+            os.system("notepad.exe front.txt")
+            file = open("times.txt", "a")
+            file.write("FRONT PERMISSIONS ACCESSED AT ")
+            file.write(str(dateTimeObj))
+            file.write("\n")
+            file.close()
+    if(whataction == '5'):
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        while (True):
+            # Capture frame-by-frame
+            ret, frame = cap.read()
+
+            # Our operations on the frame come here
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            # Display the resulting frame
+            cv2.imshow('frame', frame)
+            # cv2.imshow('gray', gray)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        cap.release()
+        cv2.destroyAllWindows()
+
+
+def main():
+    runningDoor = 'y'
+    stopD = 'y'
+    runningPers = 'y'
+    stayinP = 'y'
+    askifdoor = input("Enter (d)oor or (a)dmin action: ")
+
+    if(askifdoor == 'd'):
+        while runningDoor == 'y':
+            while stopD == 'y':
+                enterDoors()
+                main()
+
+    if(askifdoor == 'a'):
+        while runningPers == 'y':
+            if passcheck() == 1:
+                personne()
+            while stayinP == 'y':
+                if stayinP == 'y':
+                    personne()
+    if(askifdoor != 'd' or askifdoor != 'a'):
+        main()
+main()
